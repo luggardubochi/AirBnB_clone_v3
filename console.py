@@ -125,8 +125,7 @@ class HBNBCommand(cmd.Cmd):
             return
         kwargs = {}
         for idx in range(1, len(splitted)):
-            if ' ' in splitted[idx]\
-            or '=' not in splitted[idx]:
+            if ' ' in splitted[idx] or '=' not in splitted[idx]:
                 continue
             k, p, v = splitted[idx].partition('=')
             typ = HBNBCommand.parm_validator(v)
@@ -347,21 +346,19 @@ class HBNBCommand(cmd.Cmd):
         if type(parm) is not str:
             return 0
         if parm.isnumeric():
-            return 1 #integer value
+            return 1  # integer value
         if '.' in parm:
             parts = parm.partition('.')
-            if parts[0].isnumeric()\
-            and parts[2].isnumeric():
-                return 2 #float value
+            if parts[0].isnumeric() and parts[2].isnumeric():
+                return 2  # float value
         if '"' in parm:
-            if parm[0] == '"'\
-            and parm[-1] == '"':
+            if parm[0] == '"' and parm[-1] == '"':
                 for c in range(1, len(parm)-1):
-                    if parm[c] == '"'\
-                    and parm[c-1] != '\\':
+                    if parm[c] == '"' and parm[c-1] != '\\':
                         return 0
-                    return 3 #String value
+                    return 3  # String value
         return 0
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
