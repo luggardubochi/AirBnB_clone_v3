@@ -345,6 +345,10 @@ class HBNBCommand(cmd.Cmd):
         """Check the validity of a parameter"""
         if type(parm) is not str:
             return 0
+        sign = None
+        if parm[0] == '-' or parm[0] == '+':
+            sign = parm[0]
+            parm = parm.replace(sign, '')
         if parm.isnumeric():
             return 1  # integer value
         if '.' in parm:
