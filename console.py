@@ -118,13 +118,25 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        splitted = args.split(" ")
+        print(splitted)
+        if splitted[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
+        kwargs = {}
+        for idx in range(1, len(splitted)):
+            if ' ' in splitted[idx]\
+            or '=' not in splitted[idx]:
+                continue
+            k, p, v = splitted[idx].partition('=')
+            if HBNBCommand.parm_validator(v) > 0:
+                kwargs[k] = v
+        print(kwargs)
+        '''
         new_instance = HBNBCommand.classes[args]()
         storage.save()
         print(new_instance.id)
-        storage.save()
+        storage.save()'''
 
     def help_create(self):
         """ Help information for the create method """
@@ -320,6 +332,27 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
+    def parm_validator(parm):
+        """Check the validity of a parameter"""
+        if type(parm) is not str:
+            return 0
+        if parm.isnumeric():
+            return 1
+        if '.' in parm:
+            parts = parm.partition('.')
+            if parts[0].isnumeric()\
+            and parts[2].isnumeric():
+                return 2
+        if '"' in parm:
+            if parm[0] == '"'\
+            and parm[-1] == '"':
+                for c in range(1, len(parm)-1):
+                    if parm[c] == '"'\
+                    and parm[c-1] != '\\':
+                        return 0
+                    return 3
+        return 0
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
