@@ -129,14 +129,23 @@ class HBNBCommand(cmd.Cmd):
             or '=' not in splitted[idx]:
                 continue
             k, p, v = splitted[idx].partition('=')
-            if HBNBCommand.parm_validator(v) > 0:
+            typ = HBNBCommand.parm_validator(v)
+            if typ > 0:
+                if typ == 1:
+                    v = int(v)
+                if typ == 2:
+                    v = float(v)
+                if typ == 3:
+                    v = v.strip('"')
+                    v = v.replace("_", ' ')
+                    v = v.replace('\\', '')
                 kwargs[k] = v
-        print(kwargs)
-        '''
-        new_instance = HBNBCommand.classes[args]()
+        new_instance = HBNBCommand.classes[splitted[0]]()
+        for k, v in kwargs.items():
+            new_instance.__dict__[k] = v
         storage.save()
         print(new_instance.id)
-        storage.save()'''
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -338,12 +347,12 @@ class HBNBCommand(cmd.Cmd):
         if type(parm) is not str:
             return 0
         if parm.isnumeric():
-            return 1
+            return 1 #integer value
         if '.' in parm:
             parts = parm.partition('.')
             if parts[0].isnumeric()\
             and parts[2].isnumeric():
-                return 2
+                return 2 #float value
         if '"' in parm:
             if parm[0] == '"'\
             and parm[-1] == '"':
@@ -351,7 +360,7 @@ class HBNBCommand(cmd.Cmd):
                     if parm[c] == '"'\
                     and parm[c-1] != '\\':
                         return 0
-                    return 3
+                    return 3 #String value
         return 0
 
 if __name__ == "__main__":
