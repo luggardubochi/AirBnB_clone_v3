@@ -22,7 +22,6 @@ class State(BaseModel, Base):
         """User class init
         """
         """initializes state"""
-        
         super().__init__(*args, **kwargs)
 
     @property

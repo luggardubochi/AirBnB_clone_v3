@@ -10,7 +10,7 @@ class City(BaseModel, Base):
     """ The city class, contains state ID and name """
     __tablename__ = "cities"
     state_id = Column(String(60), ForeignKey('states.id'))
-    name = Column(String(128), primary_key=True)
+    name = Column(String(128))
 
     def __init__(self, *args, **kwargs):
         """City class init
