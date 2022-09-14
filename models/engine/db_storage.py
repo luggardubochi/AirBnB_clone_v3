@@ -45,18 +45,21 @@ class DBStorage:
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
+                print(objs)
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
+                    new_dict[key] = obj.to_dict()
         return (new_dict)
 
     def new(self, obj):
         """Add object to current database session"""
         self.__session.add(obj)
+        print('got here new')
 
     def save(self):
         """Commit changes to the current databases session"""
         self.__session.commit()
+        print('got here')
 
     def delete(self, obj=None):
         """Delete object from the current database session"""
