@@ -43,6 +43,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = self.created_at
+        self.save()
 
     def __str__(self):
         """Returns a string representation of the instance"""
