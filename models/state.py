@@ -16,7 +16,7 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City",  backref="state", cascade="delete")
+    cities = relationship("City",  back_populates="state", cascade="delete")
 
     def __init__(self, *args, **kwargs):
         """User class init
