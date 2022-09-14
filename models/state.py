@@ -16,7 +16,6 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City",  back_populates="state", cascade="delete")
 
     def __init__(self, *args, **kwargs):
         """User class init
@@ -24,11 +23,14 @@ class State(BaseModel, Base):
         """initializes state"""
         super().__init__(*args, **kwargs)
 
-    @property
-    def cities(self):
-        """Get a list of all related City objects."""
-        city_list = []
-        for city in list(models.storage.all(City).values()):
-            if city.state_id == self.id:
-                city_list.append(city)
-        return city_list
+    if models.storage_t == 'db':
+        cities = relationship("City",  back_populates="state", cascade="delete")
+    else:
+        @property
+        def cities(self):
+            """Get a list of all related City objects."""
+            city_list = []
+            for city in list(models.storage.all(City).values()):
+                if city.state_id == self.id:
+                    city_list.append(city)
+            return city_list
