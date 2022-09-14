@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -139,8 +138,6 @@ class HBNBCommand(cmd.Cmd):
                     v = v.replace('\\', '')
                 kwargs[k] = v
         new_instance = HBNBCommand.classes[splitted[0]](**kwargs)
-        #for k, v in kwargs.items():
-        #    new_instance.__dict__[k] = v
         storage.save()
         print(new_instance.id)
 
