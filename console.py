@@ -138,12 +138,11 @@ class HBNBCommand(cmd.Cmd):
                     v = v.replace("_", ' ')
                     v = v.replace('\\', '')
                 kwargs[k] = v
-        new_instance = HBNBCommand.classes[splitted[0]]()
-        for k, v in kwargs.items():
-            new_instance.__dict__[k] = v
+        new_instance = HBNBCommand.classes[splitted[0]](**kwargs)
+        #for k, v in kwargs.items():
+        #    new_instance.__dict__[k] = v
         storage.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
