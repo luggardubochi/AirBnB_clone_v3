@@ -9,7 +9,8 @@ from sqlalchemy import MetaData
 import models
 from models.base_model import Base
 
-place_amenity = Table('place_amenity', Base.metadata,
+if models.storage_t == 'db':
+    place_amenity = Table('place_amenity', Base.metadata,
                           Column('place_id', String(60),
                                  ForeignKey('places.id'),
                                  primary_key=True),
