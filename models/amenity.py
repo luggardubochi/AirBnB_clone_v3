@@ -5,10 +5,7 @@ from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from models.base_model import Base
-import models
-
-if models.storage_t == 'db':
-    from models.place import place_amenity
+from models.place import place_amenity
 
 
 class Amenity(BaseModel, Base):
