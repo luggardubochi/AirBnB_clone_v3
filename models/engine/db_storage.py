@@ -15,7 +15,7 @@ from sqlalchemy.orm import sessionmaker
 
 
 classes = {"User": User, "Place": Place, "City": City, "State": State,
-            "Review": Review}
+           "Review": Review}
 
 
 class DBStorage:
