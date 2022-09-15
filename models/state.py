@@ -24,7 +24,7 @@ class State(BaseModel, Base):
         super().__init__(*args, **kwargs)
 
     if models.storage_t == 'db':
-        cities = relationship("City",  back_populates="state", cascade="delete")
+        cities = relationship("City",  backref="state", cascade="delete")
     else:
         @property
         def cities(self):
